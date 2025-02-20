@@ -1,47 +1,54 @@
-# Svelte + Vite
+# Employee Satisfaction Frontend
 
-This template should help get you started developing with Svelte in Vite.
+Este es el frontend de la aplicación de seguimiento de la satisfacción de empleados, que permite visualizar, buscar y gestionar empleados, así como administrar una lista de favoritos.
 
-## Recommended IDE Setup
+## 🚀 Tecnologías utilizadas
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+- **Svelte** - Framework de frontend
+- **Tailwind CSS + DaisyUI** - Estilización y diseño
+- **Vite** - Entorno de desarrollo rápido
+- **Fetch API** - Para la comunicación con el backend
 
-## Need an official Svelte framework?
+## 📦 Instalación y configuración
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+### 1️⃣ Clonar el repositorio:
 
-## Technical considerations
+```bash
+git clone https://github.com/jul10murillo/empleados-frontend-satisfaction.git
+cd empleados-frontend-satisfaction
 
-**Why use this over SvelteKit?**
+2️⃣ Instalar dependencias:
+npm install
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+3️⃣ Configurar la URL del backend:
+Editar el archivo src/api.js y asegurarse de que la URL de la API sea correcta:
+const API_URL = "http://127.0.0.1:8000/api/v1"; // Reemplázala si es necesario
 
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+4️⃣ Ejecutar el proyecto en modo desarrollo:
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+npm run dev
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+El frontend estará disponible en http://localhost:5173 (puedes verificar en la terminal la URL exacta).
 
-**Why include `.vscode/extensions.json`?**
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+📌 Funcionalidades principales
 
-**Why enable `checkJs` in the JS template?**
+✅ Visualización de empleados - Muestra una lista paginada con información de los empleados.
+✅ Búsqueda - Filtra empleados por cualquier propiedad (nombre, correo, área, etc.).
+✅ Favoritos - Permite agregar y eliminar empleados de la lista de favoritos.
+✅ Interfaz moderna - Utiliza Tailwind CSS y DaisyUI para un diseño limpio y accesible.
 
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
+📂 Estructura del Proyecto
 
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
+empleados-frontend-satisfaction/
+│── src/
+│   ├── components/          # Componentes reutilizables (EmployeeList, FavoriteList, SearchBar, Modal)
+│   ├── stores/              # Estado global (favoritos)
+│   ├── api.js               # Llamadas a la API
+│   ├── app.css              # Estilos globales
+│   ├── App.svelte           # Componente principal
+│── public/
+│── index.html
+│── package.json
+│── README.md
