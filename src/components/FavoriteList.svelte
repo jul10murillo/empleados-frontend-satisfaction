@@ -1,41 +1,66 @@
 <script>
-    import { favorites, removeFromFavorites } from "../stores/favorites";
-    import { removeFavorite } from "../api";
-
-    function handleRemove(employeeId) {
-        removeFavorite(employeeId);
-        removeFromFavorites(employeeId);
+    import { onMount, createEventDispatcher } from "svelte";
+    import { getFavorites, removeFavorite } from "../api";
+    const dispatch = createEventDispatcher();
+    
+    // Variable para almacenar los favoritos
+    let favData = [];
+  
+    onMount(async () => {
+      const result = await getFavorites();
+      console.log("Favoritos recibidos:", result);
+      // Asegúrate de tomar el array correcto:
+      favData = result.data || [];
+    });
+  
+    async function removeFav(employeeId) {
+      // Llamamos a la función API para eliminar el favorito.
+      const response = await removeFavorite(employeeId);
+      console.log("Respuesta al eliminar favorito:", response);
+      if (response.status === "success") {
+        // Actualizamos localmente la lista de favoritos
+        favData = favData.filter(emp => emp.id !== employeeId);
+      } else {
+        console.error("Error al eliminar favorito:", response.message);
+      }
     }
-</script>
-
-<h2>Favoritos ⭐</h2>
-<table border="1" width="100%">
-    <thead>
+  
+    function closeModal() {
+      dispatch("closeModal");
+    }
+  </script>
+  
+  <h2 class="text-xl font-bold mb-4">Favoritos ⭐</h2>
+  
+  {#if favData.length > 0}
+    <table class="table w-full">
+      <thead>
         <tr>
-            <th>Nombre</th>
-            <th>Correo</th>
-            <th>Área</th>
-            <th>Categoría</th>
-            <th>Empresa</th>
-            <th>Logo</th>
-            <th>Nivel de Satisfacción</th>
-            <th>Acción</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Área</th>
+          <th>Categoría</th>
+          <th>Nivel</th>
+          <th>Acción</th>
         </tr>
-    </thead>
-    <tbody>
-        {#each $favorites as employee}
-            <tr>
-                <td>{employee.full_name}</td>
-                <td>{employee.email}</td>
-                <td>{employee.area}</td>
-                <td>{employee.category}</td>
-                <td>{employee.company.name}</td>
-                <td><img src={employee.company.logo} alt="Logo" width="50" height="50" /></td>
-                <td>{employee.satisfaction_level}</td>
-                <td>
-                    <button on:click={() => handleRemove(employee.id)}>❌</button>
-                </td>
-            </tr>
+      </thead>
+      <tbody>
+        {#each favData as fav}
+          <tr>
+            <td>{fav.full_name}</td>
+            <td>{fav.email}</td>
+            <td>{fav.area}</td>
+            <td>{fav.category}</td>
+            <td>{fav.satisfaction_level}%</td>
+            <td>
+              <button class="btn btn-error btn-xs" on:click={() => removeFav(fav.id)}>
+                Eliminar
+              </button>
+            </td>
+          </tr>
         {/each}
-    </tbody>
-</table>
+      </tbody>
+    </table>
+  {:else}
+    <p>No hay favoritos agregados.</p>
+  {/if}

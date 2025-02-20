@@ -16,7 +16,7 @@ export async function addFavorite(employeeId) {
 }
 
 export async function removeFavorite(employeeId) {
-    const res = await fetch(`${API_URL}/employees/favorites/${employeeId}`, {
+    const res = await fetch(`${API_URL}/employees/favorite/${employeeId}`, {
         method: "DELETE",
     });
     return res.json();
