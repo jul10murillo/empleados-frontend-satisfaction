@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================
+   🖤 Estilos Generales 🖤
+   ========================== */
+
+body {
+  @apply font-sans antialiased;
+}
+
+h1 {
+  @apply text-3xl font-bold mb-4 text-center text-white bg-blue-600 p-2 rounded-lg shadow-md;
+}
+
+.container {
+  @apply max-w-6xl mx-auto p-4;
+}
+
+input {
+  @apply input input-bordered w-full mb-4;
+}
+
+/* ==========================
+   📌 Estilos de la Tabla 📌
+   ========================== */
+
+table {
+  @apply table table-zebra w-full bg-base-100 shadow-lg rounded-lg overflow-hidden;
+}
+
+thead {
+  @apply bg-gray-700 text-white;
+}
+
+thead th {
+  @apply py-2 px-4 font-semibold text-center;
+}
+
+tbody tr:hover {
+  @apply bg-gray-800;
+}
+
+tbody td {
+  @apply py-2 px-4 text-center;
+}
+
+img {
+  @apply rounded-md shadow-md w-10 h-10 object-cover;
+}
+
+/* ==========================
+   ⭐ Botones y Controles ⭐
+   ========================== */
+
+button {
+  @apply btn btn-sm rounded-md;
+}
+
+.btn-primary {
+  @apply bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg;
+}
+
+.btn-secondary {
+  @apply bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg;
+}
+
+.btn-danger {
+  @apply bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg;
+}
+
+.btn-favorite {
+  @apply btn btn-circle btn-outline btn-accent;
+}
+
+.btn-remove {
+  @apply btn btn-error btn-xs;
+}
+
+/* ==========================
+   🔍 Buscador y Filtros 🔍
+   ========================== */
+
+.search-bar {
+  @apply input input-bordered w-full max-w-md mb-4 p-2;
+}
+
+/* ==========================
+   🔲 Modal de Favoritos 🔲
+   ========================== */
+
+.modal {
+  @apply bg-gray-900 bg-opacity-90 fixed inset-0 flex items-center justify-center z-50;
+}
+
+.modal-content {
+  @apply bg-base-100 p-6 rounded-lg shadow-lg w-3/4 max-w-lg;
+}
+
+.modal-close {
+  @apply btn btn-sm btn-circle btn-error absolute top-2 right-2;
+}
+
+/* ==========================
+   📦 Paginación 📦
+   ========================== */
+
+.pagination {
+  @apply flex justify-center space-x-2 mt-4;
+}
+
+.pagination button {
+  @apply btn btn-xs;
+}
+
+.pagination .active {
+  @apply bg-blue-500 text-white;
+}
