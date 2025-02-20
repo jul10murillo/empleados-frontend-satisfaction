@@ -6,6 +6,18 @@ export async function getEmployees(page = 1, search = "") {
     return res.json();
 }
 
+/**
+ * Obtiene empleados filtrados a través del endpoint /employees/search.
+ * @param {number} page - Número de página.
+ * @param {string} search - Término de búsqueda.
+ * @returns {Promise<object>} La respuesta JSON de la API.
+ */
+export async function searchEmployees(page = 1, search = "") {
+    const url = `${API_URL}/employees/search?page=${page}&search=${encodeURIComponent(search)}`;
+    const res = await fetch(url);
+    return res.json();
+}
+
 export async function addFavorite(employeeId) {
     const res = await fetch(`${API_URL}/employees/favorite`, {
         method: "POST",
@@ -30,16 +42,19 @@ export async function getFavorites() {
 export let favorites = [];
 
 export async function toggleFavorite(employee) {
-    const isFav = favorites.some(fav => fav.id === employee.id);
-
+    // Aquí suponemos que toggleFavorite en el backend realiza el toggle y retorna un objeto con "status" y "message"
+    // En tu lógica, puedes hacer la comprobación a nivel local o simplemente llamar a la función apropiada:
+    // Por ejemplo, si el empleado ya está en favoritos, se eliminará; si no, se agregará.
+    const currentFavsRes = await getFavorites();
+    const currentFavs = currentFavsRes.data || [];
+    const isFav = currentFavs.some(fav => fav.id === employee.id);
+  
     if (isFav) {
-        await removeFavorite(employee.id);
-        favorites = favorites.filter(fav => fav.id !== employee.id); // Remueve de la lista reactiva
+      return await removeFavorite(employee.id);
     } else {
-        const newFav = await addFavorite(employee.id);
-        favorites = [...favorites, { ...employee, id: newFav.id }]; // Agrega a la lista reactiva
+      return await addFavorite(employee.id);
     }
-}
+  }
 
 // Cargar favoritos al inicio
 export async function loadFavorites() {
